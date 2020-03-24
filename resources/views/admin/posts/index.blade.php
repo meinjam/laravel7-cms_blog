@@ -8,6 +8,7 @@
                 <th>#</th>
                 <th>Post Title</th>
                 <th>Post Image</th>
+                <th>Category</th>
                 <th>Editing</th>
                 <th>Deleting</th>
             </tr>
@@ -18,6 +19,7 @@
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $item->title }}</td>
                 <td><img src="{{ asset($item->image) }}" height="60" alt="{{ $item->title }}"></td>
+                <td>{{ $item->category->name }}</td>
                 <td><a href="{{ route('edit.post', $item->id) }}" class="btn btn-info">Edit</a></td>
                 <td>
                     <a href="{{ route('delete.post', $item->id) }}" class="btn btn-danger">Trash</a>

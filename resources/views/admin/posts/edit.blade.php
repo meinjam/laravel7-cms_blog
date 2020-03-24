@@ -20,6 +20,22 @@
                 </select>
             </div>
             <div class="form-group">
+                <label>Select Tags</label>
+                @foreach ($tags as $tag)
+                    <div class="checkbox">
+                        <label><input type="checkbox" name="tags[]" value="{{ $tag->id }}"
+
+                            @foreach ($post->tags as $t)
+                                @if ($tag->id == $t->id)
+                                    checked
+                                @endif
+                            @endforeach
+
+                        > {{ $tag->tag }}</label>
+                    </div>
+                @endforeach
+            </div>
+            <div class="form-group">
                 <label>Post Image</label>
                 <img src="{{asset($post->image)}}" alt="" class="img-fluid">
             </div>

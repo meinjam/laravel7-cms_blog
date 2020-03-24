@@ -106,6 +106,16 @@
                                 </div>
                             </div>
                         </li>
+                        <li class="list-group-item">
+                            <div class="dropdown">
+                                <button class="btn btn-primary btn-block dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                   Tags
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="{{ route('all.tags') }}">All tags</a>
+                                    <a class="dropdown-item" href="{{ route('create.tag') }}">Create tag</a>
+                            </div>
+                        </li>
                         {{-- <li class="list-group-item">
                             <a href="{{ route('all.posts') }}" class="btn btn-dark btn-block">All posts</a>
                         </li> --}}

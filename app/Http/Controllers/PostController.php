@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use DB;
+use App\Tag;
 use App\Post;
 use App\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use DB;
 
 class PostController extends Controller
 {
@@ -18,11 +19,12 @@ class PostController extends Controller
 
     public function create()
     {
-        $categories = Category::all();
-        if (count($categories) == 0) {
+        $tags = Tag::all();
+        $category = Category::all();
+        if (count($category) == 0) {
             return redirect()->route('category.index')->with('error','At Least one category need for creating your first post.');
         }
-        return view('admin.posts.create')->with('category', Category::all());
+        return view('admin.posts.create', compact('category', 'tags'));
     }
 
     public function store(Request $request)
@@ -32,6 +34,7 @@ class PostController extends Controller
             'image' => 'required|image|max:2000',
             'content' => 'required|min:20|max:5000',
             'category_id' => 'required',
+            'tags' => 'required',
         ];
 
         $this->validate($request, $rules);
@@ -54,6 +57,9 @@ class PostController extends Controller
         $post->slug = Str::slug($request->title);
 
         $post->save();
+
+        $post->tags()->attach($request->tags);
+
         return redirect()->route('all.posts')->with('success','Post added successfully.');
         return redirect()->back();
     }
@@ -66,7 +72,9 @@ class PostController extends Controller
     public function edit($post)
     {
         $post = Post::findOrFail($post);
-        return view('admin.posts.edit', compact('post'))->with('category', Category::all());
+        $category = Category::all();
+        $tags = Tag::all();
+        return view('admin.posts.edit', compact('post', 'category', 'tags'));
     }
 
     public function update(Request $request, $post)
@@ -98,10 +106,12 @@ class PostController extends Controller
             $success = $image->move($uploadPath, $imageFullName);
             $posts['image'] = $imageURL;
             $posts->save();
+            $posts->tags()->sync($request->tags);
             unlink($previousImage);
             return redirect()->route('all.posts')->with('success','Post updated successfully.');
         } else {
             $posts->save();
+            $posts->tags()->sync($request->tags);
             return redirect()->route('all.posts')->with('success','Post updated successfully.');
         }
         

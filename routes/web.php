@@ -25,6 +25,13 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::delete('/posts/{post}/kill', 'PostController@kill')->name('delete.kill');
     Route::get('/posts/{post}/edit', 'PostController@edit')->name('edit.post');
     Route::post('/posts/{post}/update', 'PostController@update')->name('update.post');
+
+    Route::get('/tags', 'TagController@index')->name('all.tags');
+    Route::get('/tags/create', 'TagController@create')->name('create.tag');
+    Route::post('/tags/store', 'TagController@store')->name('store.tag');
+    Route::get('/tags/{id}/delete', 'TagController@destroy')->name('delete.tag');
+    Route::get('/tags/{id}/edit', 'TagController@edit')->name('edit.tag');
+    Route::post('/tags/{id}/update', 'TagController@update')->name('update.tag');
 });
 
 // 
