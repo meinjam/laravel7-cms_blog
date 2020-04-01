@@ -24,6 +24,9 @@ class PostController extends Controller
         if (count($category) == 0) {
             return redirect()->route('category.index')->with('error','At Least one category need for creating your first post.');
         }
+        if (count($tags) == 0) {
+            return redirect()->route('create.tag')->with('error','At Least one tag need for creating your first post.');
+        }
         return view('admin.posts.create', compact('category', 'tags'));
     }
 
@@ -137,7 +140,7 @@ class PostController extends Controller
         $post->forceDelete();
         // $image = $post->image;
         // unlink($image);
-        return redirect()->route('all.posts')->with('success','Post permanently deleted.');
+        return redirect()->route('trashed.post')->with('success','Post permanently deleted.');
     }
 
     public function restore($post)

@@ -81,8 +81,23 @@
                             <a href="{{ route('home') }}" class="btn btn-success btn-block">Home</a>
                         </li>
                         <li class="list-group-item">
-                            <a href="" class="btn btn-warning btn-block">Profile</a>
+                            <a href="{{ route('my.profile') }}" class="btn btn-warning btn-block">My Profile</a>
                         </li>
+                        
+                        @if (Auth::user()->admin)
+                        <li class="list-group-item">
+                            <div class="dropdown">
+                                <button class="btn btn-danger btn-block dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                   Users
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="{{ route('all.users') }}">All users</a>
+                                    <a class="dropdown-item" href="{{ route('create.user') }}">Add new user</a>
+                                </div>
+                            </div>
+                        </li>
+                        @endif
+
                         <li class="list-group-item">
                             <div class="dropdown">
                                 <button class="btn btn-info btn-block dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -116,9 +131,11 @@
                                     <a class="dropdown-item" href="{{ route('create.tag') }}">Create tag</a>
                             </div>
                         </li>
-                        {{-- <li class="list-group-item">
-                            <a href="{{ route('all.posts') }}" class="btn btn-dark btn-block">All posts</a>
-                        </li> --}}
+                        @if (Auth::user()->admin)
+                            <li class="list-group-item">
+                                <a href="{{ route('settings') }}" class="btn btn-dark btn-block">Settings</a>
+                            </li>
+                        @endif
                     </ul>
                 </div>
                     

@@ -32,6 +32,19 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/tags/{id}/delete', 'TagController@destroy')->name('delete.tag');
     Route::get('/tags/{id}/edit', 'TagController@edit')->name('edit.tag');
     Route::post('/tags/{id}/update', 'TagController@update')->name('update.tag');
+
+    Route::get('/users', 'UserController@index')->name('all.users');
+    Route::get('/users/create', 'UserController@create')->name('create.user');
+    Route::post('/users/store', 'UserController@store')->name('store.user');
+    Route::get('/users/{id}/admin', 'UserController@admin')->name('make.admin');
+    Route::get('/users/{id}/removeadmin', 'UserController@notadmin')->name('remove.admin');
+
+    Route::get('/users/profile', 'ProfileController@index')->name('my.profile');
+    Route::get('/users/delete/{id}', 'UserController@destroy')->name('delete.user');
+    Route::Post('/users/profile/update', 'ProfileController@update')->name('profile.update');
+
+    Route::get('/settings' , 'SettingsController@index')->name('settings')->middleware('admin');
+    Route::post('/settings/update', 'SettingsController@update')->name('settings.update')->middleware('admin');
 });
 
 // 

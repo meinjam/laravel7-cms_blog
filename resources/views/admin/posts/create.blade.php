@@ -1,4 +1,5 @@
 @extends('layouts.app')
+
 @section('content')
 <div class="card">
     <div class="card-header">
@@ -35,8 +36,8 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="content">Post Description</label>
-                <textarea name="content" class="form-control" id="content" rows="5"></textarea>
+                <label for="content1">Post Description</label>
+                <textarea name="content" class="form-control" id="content1" rows="5"></textarea>
             </div>
             <div class="form-group">
                 <div class="text-center">
